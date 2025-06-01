@@ -14,7 +14,7 @@ function ContactList({
         contact={contact}
         contactsToDelete={contactsToDelete}
         setContactsToDelete={setContactsToDelete}
-        onClick={(e) => {
+        onClick={() => {
           setSelectedContact(contact);
           setEditEnabled(false); // Reset edit mode when a contact is selected
         }}

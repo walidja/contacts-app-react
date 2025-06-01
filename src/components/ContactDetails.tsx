@@ -1,5 +1,3 @@
-import { CONSTANTS } from "../utils/CONSTANTS";
-
 function ContactDetails({
   selectedContact,
   setSelectedContact,
@@ -30,7 +28,7 @@ function ContactDetails({
     });
     console.log("Updated contact:", selectedContact);
   };
-  const enableFields = (e) => {
+  const enableFields = () => {
     setEditEnabled(true);
   };
   const saveChanges = (e) => {

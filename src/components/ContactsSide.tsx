@@ -13,7 +13,7 @@ function ContactsSide({
   setContactsToDelete,
   onDeleteManyContacts,
 }) {
-  const onClickNewContact = (e) => {
+  const onClickNewContact = () => {
     setIsModalOpen(true);
   };
   return (
