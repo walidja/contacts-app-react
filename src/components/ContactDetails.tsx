@@ -1,3 +1,9 @@
+import Button from "react-bootstrap/Button";
+import ContactForm from "./ContactForm";
+import Navbar from "react-bootstrap/Navbar";
+import Container from "react-bootstrap/Container";
+import { Card } from "react-bootstrap";
+
 function ContactDetails({
   selectedContact,
   setSelectedContact,
@@ -8,6 +14,9 @@ function ContactDetails({
 }) {
   const deleteContact = (e) => {
     e.preventDefault();
+    if (!window.confirm("Are you sure you want to delete this contact?")) {
+      return;
+    }
     const updatedContacts = contacts.filter(
       (contact) => contact.id !== selectedContact.id
     );
@@ -44,100 +53,57 @@ function ContactDetails({
   return (
     <article className="details-page">
       <div className="details-page-container" id="details-page-container">
-        <header className="contact-details-header">
-          <h3>Contact Details</h3>
-          <div>
-            <button
-              className="delete-item-btn"
-              id="delete-item-btn"
-              onClick={deleteContact}
+        <Card>
+          <Card.Header>
+            <div className="d-flex justify-content-between align-items-center">
+              <span className="">Contact Details</span>
+              <div>
+                <Button
+                  variant="danger"
+                  className="delete-item-btn"
+                  id="delete-item-btn"
+                  onClick={deleteContact}
+                >
+                  Delete
+                </Button>
+                <Button
+                  variant="warning"
+                  className="edit-item-btn ms-1"
+                  id="edit-item-btn"
+                  onClick={enableFields}
+                >
+                  Edit
+                </Button>
+              </div>
+            </div>
+          </Card.Header>
+          <Card.Body>
+            <ContactForm
+              formId={"edit-contact-form"}
+              contact={selectedContact}
+              handleChange={editContact}
+              isEditable={editEnabled}
+              saveChanges={saveChanges}
+            />
+          </Card.Body>
+          <Card.Footer style={{ display: editEnabled ? "block" : "none" }}>
+            <Button
+              variant="secondary"
+              onClick={() => setEditEnabled(false)}
+              className="me-2"
             >
-              Delete
-            </button>
-            <button
-              className="edit-item-btn"
-              id="edit-item-btn"
-              onClick={enableFields}
-            >
-              Edit
-            </button>
-          </div>
-        </header>
-        <main>
-          <form id="contact-details-form" onSubmit={saveChanges}>
-            Name:{" "}
-            <input
-              type="text"
-              name="name"
-              id="contact-name"
-              disabled={!editEnabled}
-              value={selectedContact.name}
-              onChange={editContact}
-              required
-            />
-            <br />
-            Primary Number:{" "}
-            <input
-              type="number"
-              name="primaryNumber"
-              id="primary-number"
-              disabled={!editEnabled}
-              value={selectedContact.primaryNumber}
-              onChange={editContact}
-              required
-            />
-            <br />
-            Secondary Number:{" "}
-            <input
-              type="number"
-              name="secondaryNumber"
-              id="sec-number"
-              disabled={!editEnabled}
-              value={selectedContact.secondaryNumber}
-              onChange={editContact}
-            />
-            <br />
-            E-mail:{" "}
-            <input
-              type="text"
-              name="email"
-              id="email"
-              disabled={!editEnabled}
-              value={selectedContact.email}
-              onChange={editContact}
-            />
-            <br />
-            Address:{" "}
-            <input
-              type="text"
-              name="address"
-              id="address"
-              disabled={!editEnabled}
-              value={selectedContact.address}
-              onChange={editContact}
-            />
-            <br />
-            Notes:
-            <br />
-            <textarea
-              name="notes"
-              id="notes"
-              placeholder="enter your notes here if any"
-              disabled={!editEnabled}
-              value={selectedContact.notes}
-              onChange={editContact}
-            ></textarea>
-            <br />
-            <button
+              Cancel
+            </Button>
+            <Button
+              form="edit-contact-form"
+              variant="success"
               type="submit"
-              id="save-changes-btn"
-              className="save-changes-btn"
-              style={{ display: editEnabled ? "block" : "none" }}
+              id="save-contact-btn"
             >
-              Save Changes
-            </button>
-          </form>
-        </main>
+              Update Contact
+            </Button>
+          </Card.Footer>
+        </Card>
       </div>
     </article>
   );

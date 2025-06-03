@@ -1,8 +1,10 @@
 function AppFooter() {
   return (
-    <footer className="footer">
-      {" "}
-      Power by <strong>Walid helmy jalhoom</strong>
+    <footer className="app-footer bg-light text-center py-3 mt-auto footer">
+      <small>
+        &copy; {new Date().getFullYear()} Contacts List App &mdash; Built with
+        React & Bootstrap
+      </small>
     </footer>
   );
 }

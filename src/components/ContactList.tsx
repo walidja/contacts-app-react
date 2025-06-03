@@ -1,6 +1,8 @@
+import ListGroup from "react-bootstrap/ListGroup";
 import ContactItem from "./ContactItem";
 
 function ContactList({
+  selectedContact,
   setSelectedContact,
   contacts,
   setEditEnabled,
@@ -11,6 +13,8 @@ function ContactList({
   contacts.forEach((contact) => {
     items.push(
       <ContactItem
+        active={selectedContact && selectedContact.id === contact.id}
+        key={contact.id}
         contact={contact}
         contactsToDelete={contactsToDelete}
         setContactsToDelete={setContactsToDelete}
@@ -22,9 +26,9 @@ function ContactList({
     );
   });
   return (
-    <ul id="contacts-list" className="contacts-list">
+    <ListGroup as="ul" className="contacts-list m-1">
       {items}
-    </ul>
+    </ListGroup>
   );
 }
 

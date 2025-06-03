@@ -1,4 +1,3 @@
-import "./styles.css";
 import { useState, useEffect } from "react";
 import AppHeader from "./components/AppHeader";
 import AppFooter from "./components/AppFooter";
@@ -14,7 +13,7 @@ function App() {
   const [contactsToDelete, setContactsToDelete] = useState([]);
   useEffect(() => {
     if (contacts.length > 0) {
-      setSelectedContact(contacts[0]);
+      setSelectedContact(selectedContact || contacts[0]); // Set the first contact as selected if none is selected
     } else {
       setSelectedContact(null);
     }
@@ -25,16 +24,15 @@ function App() {
       contacts.filter((contact) => !contactsToDelete.includes(contact.id))
     );
     setContactsToDelete([]); // Clear the contacts to delete after deletion
+    setSelectedContact(null);
   };
 
   return (
     <>
-      <AppHeader />
+      <AppHeader setIsModalOpen={setIsModalOpen} />
       <ContactsSide
-        isModalOpen={isModalOpen}
-        setIsModalOpen={setIsModalOpen}
+        selectedContact={selectedContact}
         contacts={contacts}
-        setContacts={setContacts}
         setSelectedContact={setSelectedContact}
         setEditEnabled={setEditEnabled}
         contactsToDelete={contactsToDelete}

@@ -1,51 +1,35 @@
 // This component represents the sidebar where contacts are listed and new contacts can be added.
+import Button from "react-bootstrap/Button";
 import ContactList from "./ContactList";
-import AddContactModal from "./AddContactModal";
 
 function ContactsSide({
-  isModalOpen,
-  setIsModalOpen,
   contacts,
-  setContacts,
+  selectedContact,
   setSelectedContact,
   setEditEnabled,
   contactsToDelete,
   setContactsToDelete,
   onDeleteManyContacts,
 }) {
-  const onClickNewContact = () => {
-    setIsModalOpen(true);
-  };
   return (
     <aside id="contacts-bar" className="contacts-bar">
-      <button
-        id="new-contact-btn"
-        className="new-contact-btn"
-        onClick={onClickNewContact}
-      >
-        Add Contact
-      </button>
       <ContactList
+        selectedContact={selectedContact}
         setSelectedContact={setSelectedContact}
         contacts={contacts}
         setEditEnabled={setEditEnabled}
         contactsToDelete={contactsToDelete}
         setContactsToDelete={setContactsToDelete}
       />
-      <button
+      <Button
+        variant="danger"
         id="delete-many-btn"
         className="delete-many-btn"
         style={{ display: contactsToDelete.length > 0 ? "block" : "none" }}
         onClick={onDeleteManyContacts}
       >
         Delete Contacts
-      </button>
-      <AddContactModal
-        contacts={contacts}
-        isModalOpen={isModalOpen}
-        setIsModalOpen={setIsModalOpen}
-        setContacts={setContacts}
-      />
+      </Button>
     </aside>
   );
 }

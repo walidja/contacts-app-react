@@ -1,8 +1,11 @@
+import ListGroup from "react-bootstrap/ListGroup";
+
 function ContactItem({
   contact,
   onClick,
   contactsToDelete,
   setContactsToDelete,
+  active,
 }) {
   const handleCheckboxChange = (e) => {
     const isChecked = e.target.checked;
@@ -14,7 +17,13 @@ function ContactItem({
     }
   };
   return (
-    <li className="contact-item" key={contact.id} onClick={onClick}>
+    <ListGroup.Item
+      as="li"
+      className="d-flex justify-content-between align-items-center"
+      key={contact.id}
+      onClick={onClick}
+      active={active}
+    >
       <div className="contact-details">
         <span className="contact-name">{contact.name}</span>
         <span className="contact-number">{contact.primaryNumber}</span>
@@ -24,7 +33,7 @@ function ContactItem({
         name="delete-item"
         onChange={handleCheckboxChange}
       />
-    </li>
+    </ListGroup.Item>
   );
 }
 

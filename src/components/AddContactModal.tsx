@@ -1,5 +1,8 @@
 import { useState } from "react";
 import { CONSTANTS } from "../utils/CONSTANTS";
+import Modal from "react-bootstrap/Modal";
+import ContactForm from "./ContactForm";
+import Button from "react-bootstrap/Button";
 
 function AddContactModal({
   isModalOpen,
@@ -8,7 +11,6 @@ function AddContactModal({
   setContacts,
 }) {
   const [contact, setContact] = useState(CONSTANTS.EMPTY_CONTACT);
-  const modalDisplay = () => (!isModalOpen ? "none" : "block");
   if (!isModalOpen) {
     return null;
   }
@@ -25,99 +27,33 @@ function AddContactModal({
     setIsModalOpen(false);
   };
   return (
-    <div id="modal" className="modal" style={{ display: modalDisplay() }}>
-      <div className="modal-content">
-        <span
-          className="close-btn"
-          id="close-modal"
-          onClick={() => {
-            setIsModalOpen(false);
-          }}
-        >
-          &times;
-        </span>
-        <h2>Add New Contact</h2>
-        <form id="add-contact-form" onSubmit={saveContact}>
-          <div className="form-group">
-            <label htmlFor="modal-contact-name">Name</label>
-            <input
-              type="text"
-              id="modal-contact-name"
-              name="name"
-              value={contact.name}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="modal-primary-number">Primary Number</label>
-            <input
-              type="number"
-              id="modal-primary-number"
-              name="primaryNumber"
-              value={contact.primaryNumber}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="modal-sec-number">Secondary Number</label>
-            <input
-              type="number"
-              id="modal-sec-number"
-              name="secondaryNumber"
-              value={contact.secondaryNumber}
-              onChange={handleChange}
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="modal-email">E-mail</label>
-            <input
-              type="email"
-              id="modal-email"
-              name="email"
-              value={contact.email}
-              onChange={handleChange}
-            />
-          </div>
-
-          <label htmlFor="modal-email">E-mail:</label>
-          <input
-            type="email"
-            id="modal-email"
-            name="email"
-            value={contact.email}
-            onChange={handleChange}
-          />
-          <br />
-
-          <label htmlFor="modal-address">Address:</label>
-          <input
-            type="text"
-            id="modal-address"
-            name="address"
-            value={contact.address}
-            onChange={handleChange}
-          />
-          <br />
-
-          <label htmlFor="modal-notes">Notes:</label>
-          <br />
-          <textarea
-            id="modal-notes"
-            name="notes"
-            placeholder="Enter your notes here"
-            onChange={handleChange}
-            value={contact.notes}
-          ></textarea>
-          <br />
-
-          <button type="submit" id="save-contact-btn">
-            Save Contact
-          </button>
-        </form>
-      </div>
-    </div>
+    <Modal
+      size="lg"
+      id="modal"
+      show={isModalOpen}
+      onHide={() => setIsModalOpen(false)}
+    >
+      <Modal.Header closeButton>
+        <Modal.Title>Add New Contact</Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        <ContactForm
+          formId="add-contact-form"
+          contact={contact}
+          handleChange={handleChange}
+          saveChanges={saveContact}
+          isEditable={true}
+        />
+      </Modal.Body>
+      <Modal.Footer className="custom-modal-footer">
+        <Button variant="secondary" onClick={() => setIsModalOpen(false)}>
+          Cancel
+        </Button>
+        <Button variant="primary" type="submit" form="add-contact-form">
+          Add Contact
+        </Button>
+      </Modal.Footer>
+    </Modal>
   );
 }
 
