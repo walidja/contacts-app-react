@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { CONSTANTS } from "../utils/CONSTANTS";
+import CONSTANTS from "../utils/CONSTANTS";
 import Modal from "react-bootstrap/Modal";
 import ContactForm from "./ContactForm";
 import Button from "react-bootstrap/Button";
@@ -7,8 +7,9 @@ import Button from "react-bootstrap/Button";
 function AddContactModal({
   isModalOpen,
   setIsModalOpen,
-  contacts,
-  setContacts,
+  saveContact,
+  isSaving,
+  setIsSaving,
 }) {
   const [contact, setContact] = useState(CONSTANTS.EMPTY_CONTACT);
   if (!isModalOpen) {
@@ -18,13 +19,9 @@ function AddContactModal({
     const { name, value } = e.target;
     setContact({ ...contact, [name]: value });
   };
-  const saveContact = (e) => {
+  const saveChanges = (e) => {
     e.preventDefault();
-    setContacts([...contacts, { ...contact, id: Date.now() }]);
-    // Reset the contact state to empty so the form is ready for the next contact
-    setContact(CONSTANTS.EMPTY_CONTACT);
-    // and close the modal
-    setIsModalOpen(false);
+    saveContact(e, contact, setContact);
   };
   return (
     <Modal
@@ -41,7 +38,7 @@ function AddContactModal({
           formId="add-contact-form"
           contact={contact}
           handleChange={handleChange}
-          saveChanges={saveContact}
+          saveChanges={saveChanges}
           isEditable={true}
         />
       </Modal.Body>
@@ -49,8 +46,24 @@ function AddContactModal({
         <Button variant="secondary" onClick={() => setIsModalOpen(false)}>
           Cancel
         </Button>
-        <Button variant="primary" type="submit" form="add-contact-form">
-          Add Contact
+        <Button
+          variant="primary"
+          type="submit"
+          form="add-contact-form"
+          disabled={isSaving}
+        >
+          {isSaving ? (
+            <>
+              <span
+                className="spinner-border spinner-border-sm me-2"
+                role="status"
+                aria-hidden="true"
+              ></span>
+              Saving...
+            </>
+          ) : (
+            "Add Contact"
+          )}
         </Button>
       </Modal.Footer>
     </Modal>

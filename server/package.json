@@ -1,0 +1,23 @@
+{
+  "name": "contacts-app",
+  "version": "0.0.1",
+  "type": "commonjs",
+  "description": "A backend service for managing contacts",
+  "main": "./app.js",
+  "scripts": {
+    "start": "node ./app.js",
+    "dev": "nodemon app.js",
+    "test": "echo \"No tests specified\" && exit 0"
+  },
+  "author": "Walid Jalhoom <walidhelmyjm@gmail.com>",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^5.1.0"
+  },
+  "devDependencies": {
+    "eslint": "^9.25.0",
+    "nodemon": "^3.1.10"
+  },
+  "keywords": [],
+  "license": "ISC"
+}

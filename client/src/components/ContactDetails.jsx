@@ -1,30 +1,15 @@
 import Button from "react-bootstrap/Button";
 import ContactForm from "./ContactForm";
-import Navbar from "react-bootstrap/Navbar";
-import Container from "react-bootstrap/Container";
 import { Card } from "react-bootstrap";
 
 function ContactDetails({
   selectedContact,
   setSelectedContact,
-  contacts,
-  setContacts,
   editEnabled,
   setEditEnabled,
+  deleteContact,
+  saveChanges,
 }) {
-  const deleteContact = (e) => {
-    e.preventDefault();
-    if (!window.confirm("Are you sure you want to delete this contact?")) {
-      return;
-    }
-    const updatedContacts = contacts.filter(
-      (contact) => contact.id !== selectedContact.id
-    );
-    setContacts(updatedContacts);
-    console.log("Contact deleted:", selectedContact);
-    // Reset the selected contact
-    setSelectedContact(null);
-  };
   const editContact = (e) => {
     // Logic for editing the contact can be implemented here
     console.log("Edit contact logic to be implemented");
@@ -39,16 +24,6 @@ function ContactDetails({
   };
   const enableFields = () => {
     setEditEnabled(true);
-  };
-  const saveChanges = (e) => {
-    e.preventDefault();
-    setContacts(
-      contacts.map((listContact) =>
-        listContact.id === selectedContact.id ? selectedContact : listContact
-      )
-    );
-    console.log("Changes saved:", selectedContact);
-    setEditEnabled(false);
   };
   return (
     <article className="details-page">
