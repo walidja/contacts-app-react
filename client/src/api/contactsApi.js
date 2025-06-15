@@ -1,6 +1,6 @@
 import CONSTANTS from "../utils/CONSTANTS";
 
-const url = "http://localhost:4000/contacts";
+const url = import.meta.env.VITE_CONTACTS_API_URL;
 
 const CODE_RESPONSE = CONSTANTS.CODE_RESPONSE;
 const REST_METHODS = CONSTANTS.REST_METHODS;

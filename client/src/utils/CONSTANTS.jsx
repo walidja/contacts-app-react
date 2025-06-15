@@ -7,7 +7,6 @@ const EMPTY_CONTACT = {
   notes: "",
 };
 
-const CONTACTS_API_URL = "/api/contacts";
 const CODE_RESPONSE = {
   SUCCESS: 200,
   CREATED: 201,
@@ -29,7 +28,6 @@ const REST_METHODS = {
 
 const CONSTANTS = {
   EMPTY_CONTACT,
-  CONTACTS_API_URL,
   CODE_RESPONSE,
   REST_METHODS,
 };

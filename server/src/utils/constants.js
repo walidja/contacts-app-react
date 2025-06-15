@@ -1,9 +1,13 @@
 const path = require("path");
 const os = require("os");
+require("dotenv").config();
 
 // Define the path to the contacts file
-exports.DATA_DIR = path.join(os.tmpdir(), "contacts data");
-exports.CONTACTS_FILE_PATH = path.join(this.DATA_DIR, "contacts.json");
+exports.FULL_PATH = process.env.CONTACTS_FILE_PATH;
+exports.DATA_DIR = path.join(os.tmpdir(), process.env.CONTACTS_DATA_DIR);
+exports.CONTACTS_FILE_PATH = this.FULL_PATH
+  ? this.FULL_PATH
+  : path.join(this.DATA_DIR, process.env.CONTACTS_FILE_NAME);
 exports.CODE_RESPONSE = {
   SUCCESS: 200,
   CREATED: 201,
