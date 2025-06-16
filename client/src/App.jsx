@@ -5,6 +5,8 @@ import AppFooter from "./components/AppFooter";
 import ContactsSide from "./components/ContactsSide";
 import ContactDetails from "./components/ContactDetails";
 import AddContactModal from "./components/AddContactModal";
+import Toast from "react-bootstrap/Toast";
+
 import {
   dbGetContacts,
   dbCreatContact,
@@ -20,6 +22,10 @@ function App() {
   const [selectedContact, setSelectedContact] = useState(null);
   const [contactsToDelete, setContactsToDelete] = useState([]);
   const [isSaving, setIsSaving] = useState(false);
+  const [toast, setToast] = useState({
+    show: false,
+    message: "",
+  });
 
   useEffect(() => {
     dbGetContacts()
@@ -49,6 +55,10 @@ function App() {
         setContact(CONSTANTS.EMPTY_CONTACT);
         // and close the modal
         setIsModalOpen(false);
+        setToast({
+          show: true,
+          message: "Contact added successfully!",
+        });
       })
       .finally(() => {
         setIsSaving(false);
@@ -129,6 +139,22 @@ function App() {
         setIsSaving={setIsSaving}
       />
       <AppFooter />
+      <Toast
+        show={toast.show}
+        onClose={() => setToast({ ...toast, show: false })}
+        delay={3000}
+        autohide
+        style={{
+          position: "fixed",
+          bottom: 20,
+          right: 20,
+          minWidth: 200,
+          zIndex: 9999,
+        }}
+        bg="success"
+      >
+        <Toast.Body>{toast.message}</Toast.Body>
+      </Toast>
     </>
   );
 }
